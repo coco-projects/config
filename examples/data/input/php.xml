@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <var_session_id>123</var_session_id>
+    <type>file</type>
+    <store></store>
+    <store_shop></store_shop>
+    <expire>1440</expire>
+    <prefix></prefix>
+    <stores>
+        <file>
+            <type>File</type>
+            <path></path>
+            <prefix></prefix>
+            <expire>0</expire>
+            <tag_prefix>tag:</tag_prefix>
+        </file>
+    </stores>
+</config>

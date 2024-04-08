@@ -2,7 +2,6 @@
 
     namespace Coco\config;
 
-
 class Factory
 {
     protected static array $ReaderExtensions = [

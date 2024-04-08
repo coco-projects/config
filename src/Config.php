@@ -6,7 +6,6 @@
 
 class Config implements ArrayAccess
 {
-
     protected array $data = [];
 
     public function __construct(array $array)
@@ -36,12 +35,28 @@ class Config implements ArrayAccess
         return $default;
     }
 
-
     public function __get($name)
     {
         return $this->get($name);
     }
 
+    public function addFormString(string $name, mixed $value): static
+    {
+        $names = explode('.', $name);
+
+        $result = [];
+        $temp   = &$result;
+
+        foreach ($names as $k) {
+            $temp = &$temp[$k];
+        }
+
+        $temp = $value;
+
+        $this->merge($result);
+
+        return $this;
+    }
 
     public function __set($name, $value)
     {
@@ -55,7 +70,6 @@ class Config implements ArrayAccess
             $this->data[$name] = $value;
         }
     }
-
 
     public function __clone()
     {
@@ -71,7 +85,6 @@ class Config implements ArrayAccess
 
         $this->data = $array;
     }
-
 
     public function toArray(): array
     {
@@ -89,42 +102,35 @@ class Config implements ArrayAccess
         return $array;
     }
 
-
     public function __isset($name)
     {
         return isset($this->data[$name]);
     }
-
 
     public function __unset($name)
     {
         unset($this->data[$name]);
     }
 
-
     public function offsetExists($offset): bool
     {
         return $this->__isset($offset);
     }
-
 
     public function offsetGet($offset): mixed
     {
         return $this->__get($offset);
     }
 
-
     public function offsetSet($offset, $value): void
     {
         $this->__set($offset, $value);
     }
 
-
     public function offsetUnset($offset): void
     {
         $this->__unset($offset);
     }
-
 
     public function merge(array $mergeArray): static
     {
@@ -135,9 +141,6 @@ class Config implements ArrayAccess
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getData(): array
     {
         return $this->data;
